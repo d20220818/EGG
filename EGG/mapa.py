@@ -1,4 +1,5 @@
 import pandas as pd
+from EGG.hatchery import join
 
 def summary(objs, by): return [x.groupby(by=by).sum(numeric_only=True).reset_index() for x in objs]
 
