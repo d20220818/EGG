@@ -2,7 +2,7 @@ import pandas as pd
 
 def summary(objs, by): return [x.groupby(by=by).sum(numeric_only=True).reset_index() for x in objs]
 
-def MAPA_df(clas, inc, nasc):
+def MAPA_production(clas, inc, nasc):
 
   for df in [clas, inc, nasc]:
 	  df['MTECH_FLOCK_ID'] = df['FARM_CODE'].map(lambda x: '/'.join(df[df['FARM_CODE'] == x]['MTECH_FLOCK_ID'].unique()))
