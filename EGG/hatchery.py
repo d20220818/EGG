@@ -1,5 +1,5 @@
 import pandas as pd
-from pyx.array_utility import au
+import pyx.array_utility as au
 
 HE = [f'HE{i}' for i in range(1,5)]
 XN = [f'X{i}' for i in range(1,5)]
