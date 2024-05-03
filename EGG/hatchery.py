@@ -1,26 +1,5 @@
-import urllib.request
-import sys
-
-def import_module_from_git(repo_url, module_name):
-    code = urllib.request.urlopen(f"{repo_url}/{module_name}.py").read().decode('utf-8')
-    module = sys.modules.get(module_name)
-
-    if module is None:
-        module = sys.modules[module_name] = type(sys)(module_name)
-        module.__file__ = f"{repo_url}/{module_name}.py"
-
-    exec(code, module.__dict__)
-
-    return module
-
-# Example usage
-repo_url = "https://raw.githubusercontent.com/Setserp13/pyx/main/pyx"
-
-def load(module_name): return import_module_from_git(repo_url, module_name)
-
-
 import pandas as pd
-au = load("pyx.array_utility")
+from pyx.array_utility import au
 
 HE = [f'HE{i}' for i in range(1,5)]
 XN = [f'X{i}' for i in range(1,5)]
