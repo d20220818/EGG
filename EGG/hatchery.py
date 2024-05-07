@@ -1,5 +1,7 @@
 import pandas as pd
 import pyx.array_utility as au
+from datetime import timedelta
+def flock_placement_date(production_date, flock_age): return production_date - timedelta(weeks = flock_age)
 
 HE = [f'HE{i}' for i in range(1,5)]
 XN = [f'X{i}' for i in range(1,5)]
