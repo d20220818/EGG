@@ -32,8 +32,8 @@ def breed(strain):
 
 def join_hatch_and_dispatch(hatch, dispatch, on=['HATCH_DATE', 'STRAIN_CODE']):
 	#hatch['LINE'] = hatch['STRAIN_CODE'].map(line)
-	print(hatch)
-	print(dispatch)
+	#print(hatch)
+	#print(dispatch)
 	dispatch = dispatch.reset_index()
 	dispatch = dispatch.assign(**{'SALEABLE_DISPATCHED': pd.to_numeric(dispatch.loc[dispatch['LINE'] != 'A']['TO_CHICKS_DISPATCHED'])})
 	dispatch = dispatch.assign(**{'BY_PRODUCT_DISPATCHED': pd.to_numeric(dispatch.loc[dispatch['LINE'] == 'A']['TO_CHICKS_DISPATCHED'])})
