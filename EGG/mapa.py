@@ -57,8 +57,8 @@ def consumo_mensal(cadastro, saida, ano, mes): #CONSUMO DE VACINAS NO MÊS
 
 
 
-def MAPA_vaccines(cadastro, saida, partidas, ordens): #Cadastro de vacinas, saída de vacinas, aves vacinadas
-	saida = consumo_mensal(cadastro, saida, YEAR, MONTH)
+def MAPA_vaccines(cadastro, saida, partidas, ordens, year, month): #Cadastro de vacinas, saída de vacinas, aves vacinadas
+	saida = consumo_mensal(cadastro, saida, year, month)
 
 	#AVES VACINADAS
 	partidas = partidas[partidas['Categoria'] == 'Vacina'].reset_index()
@@ -67,7 +67,7 @@ def MAPA_vaccines(cadastro, saida, partidas, ordens): #Cadastro de vacinas, saí
 
 	fillnext(ordens, ['HATCH DATE', 'VACCINES'])
 
-	ordens = ordens.loc[(ordens['HATCH DATE'].dt.year==YEAR) & (ordens['HATCH DATE'].dt.month==MONTH) & (ordens['TO_CHICKS_DISPATCHED'] > 0)]
+	ordens = ordens.loc[(ordens['HATCH DATE'].dt.year==year) & (ordens['HATCH DATE'].dt.month==month) & (ordens['TO_CHICKS_DISPATCHED'] > 0)]
 	ordens = ordens.reset_index()
 
 
