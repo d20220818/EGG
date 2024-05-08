@@ -2,7 +2,7 @@ import pandas as pd
 from pyx.xl import *
 import datetime as dtm
 
-def atualizar_gtas(ws2, sheet):
+def atualizar_gtas(wb2, sheet):
 	sorted_sheet = sheet.sort_values(by=['FARM_NAME', 'PRODUCTION_DATE', 'FARM_CODE', 'MTECH_FLOCK_ID', 'GTA_NUMBER'])
 	sorted_sheet['PRODUCTION_DATE'] = sorted_sheet['PRODUCTION_DATE'].map(lambda x: (pd.to_datetime(x) + dtm.timedelta(days = 1)))
 	sorted_sheet['MTECH_FLOCK_ID'] = sorted_sheet['FARM_CODE'].map(lambda x: '/'.join(sorted(sorted_sheet[sorted_sheet['FARM_CODE'] == x]['MTECH_FLOCK_ID'].unique())))
