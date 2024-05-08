@@ -31,3 +31,75 @@ def MAPA_production(clas, inc, nasc):
 
   #print(data)
   return data
+
+
+def consumo_mensal(cadastro, saida, ano, mes): #CONSUMO DE VACINAS NO MÊS
+	cadastro = cadastro[cadastro['Categoria'] == 'Vacina']
+	#print(cadastro)
+
+	saida['Data'] = pd.to_datetime(saida['Data'], format='%Y-%m-%d')
+
+	saida = saida.loc[(saida['Data'].dt.year==ano) & (saida['Data'].dt.month==mes)]#, 'selected_column'] = new_column_values
+
+	saida = saida[saida['Observações'].isnull()]
+
+
+	saida = saida[['Cod. Produto', 'Nome Produto', 'Observações', 'Qtde.']]
+
+	saida = saida.groupby(by=['Cod. Produto', 'Nome Produto']).sum(numeric_only = True).reset_index()
+
+	saida = saida.set_index(['Cod. Produto', 'Nome Produto']).join(cadastro.set_index(['Cod. Produto', 'Nome Produto'])).reset_index()
+
+	saida = saida[saida['Categoria'] == 'Vacina']
+
+	saida['Total'] = saida['Qtde.'] * saida['Un.']
+	return saida
+
+
+
+def MAPA_vaccines(cadastro, saida, partidas, ordens): #Cadastro de vacinas, saída de vacinas, aves vacinadas
+	saida = consumo_mensal(cadastro, saida, YEAR, MONTH)
+
+	#AVES VACINADAS
+	partidas = partidas[partidas['Categoria'] == 'Vacina'].reset_index()
+
+	ordens['HATCH DATE'] = pd.to_datetime(ordens['HATCH DATE'], dayfirst=True)
+
+	fillnext(ordens, ['HATCH DATE', 'VACCINES'])
+
+	ordens = ordens.loc[(ordens['HATCH DATE'].dt.year==YEAR) & (ordens['HATCH DATE'].dt.month==MONTH) & (ordens['TO_CHICKS_DISPATCHED'] > 0)]
+	ordens = ordens.reset_index()
+
+
+	vac2 = pd.DataFrame(data=[], columns=['Doenças', 'Nome', 'Laboratório', 'Partida', 'Validade', 'Produtos', 'Aves vacinadas'])
+
+
+	partidas['Código'] = partidas['Código'].map(lambda x: str(x))
+
+	for i in range(ordens.shape[0]):
+		vaccine_numbers = str(ordens.iloc[i, ordens.columns.get_loc('VACCINES')])
+		if pd.isnull(vaccine_numbers): continue
+		vaccine_numbers = vaccine_numbers.replace(' ', '').replace('.', ',').split(',')
+		for cod in vaccine_numbers:
+			row = partidas[partidas['Código'] == cod]
+			if row.shape[0] == 0: continue
+			row = row.iloc[0]
+			vac2.loc[len(vac2)] = [row['Doenças'], row['Nome'], row['Laboratório'], row['Partida'], row['Validade'], row['Produtos'], ordens.loc[i]['TO_CHICKS_DISPATCHED']]
+
+	#print(vac2)
+
+	vac2 = vac2.groupby(by=['Doenças', 'Nome', 'Laboratório', 'Partida', 'Validade', 'Produtos']).sum(numeric_only = True).reset_index()
+	vac2 = vac2.sort_values(by=['Doenças', 'Laboratório', 'Nome'])
+
+	def doses_usadas(df, produtos): return df[df['Cod. Produto'].isin(produtos)]['Total'].sum()
+
+	vac2['Produtos'].fillna('', inplace=True)
+
+	saida['Cod. Produto'] = saida['Cod. Produto'].map(lambda x: str(int(x)))
+	vac2['Doses'] = vac2['Produtos'].map(lambda x: doses_usadas(saida, str(x).replace(' ', '').replace('.', ',').split(',')))
+
+
+	vac2['Oleosa'] = ''
+	vac2['Aquosa'] = ''
+	vac2 = vac2[['Nome', 'Doenças', 'Laboratório', 'Partida', 'Doses', 'Oleosa', 'Aquosa', 'Validade', 'Aves vacinadas']]
+	return vac2
