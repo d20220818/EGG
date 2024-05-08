@@ -29,5 +29,5 @@ def MAPA_production(clas, inc, nasc):
 
   data = data.reindex(columns=new_columns)
 
-  print(data)
+  #print(data)
   return data
