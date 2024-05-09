@@ -72,3 +72,10 @@ def atualizar_gtas(wb2, sheet):
 		wscpy(wb2[fn], ws, wb2[fn].max_row + 1)
 	print('Done!')
 	return wb2
+
+
+def arquivos_de_gtas_de_origem(sheet, gtas, gtas_de_origem): #gtas can be a dir or a list, it depends on func, func is like lambda ls, gtas, filename
+	sheet = sheet.rename(columns = {'HATCH_DATE': 'MAIN_DATE', 'SHIP_DATE': 'MAIN_DATE'})
+	sheet['MAIN_DATE'] = pd.to_datetime(sheet['MAIN_DATE'], dayfirst=True)
+	sheet = sheet.sort_values(by=['MAIN_DATE', 'ORDERNO', 'CUSTNAME', 'FARM_NAME', 'GTA_NUMBER', 'FARM_CODE', 'MTECH_FLOCK_ID', 'STRAIN_CODE'])
+	foreach(sheet, ['MAIN_DATE', 'ORDERNO', 'CUSTNAME'], lambda df, vs: gtas_de_origem([str(x)[:6] for x in df['GTA_NUMBER'].unique()], gtas_dir, f"GTAS DE ORIGEM - {vs['MAIN_DATE'].strftime('%d-%m-%Y')} - {vs['CUSTNAME'].replace('/', '')} - {vs['ORDERNO']}.pdf"))
