@@ -1,6 +1,6 @@
 import pandas as pd
 from EGG.hatchery import *
-from pyx.dataframe_utility import segment
+from pyx.dataframe_utility import segment, select
 
 def check(df, start_date=None, end_date=None):
 	if start_date == None:
@@ -68,7 +68,7 @@ def simulate_production(classified, received):
 	received['PRODUCTION_DATE'] = received['PRODUCTION_DATE'].ffill()
 	received['GTA_NUMBER'] = received['GTA_NUMBER'].ffill()
 	for i, row in received.iterrows():
-		df2 = dfu.select(classified, ['STRAIN_CODE', 'MTECH_FLOCK_ID'], row)
+		df2 = select(classified, ['STRAIN_CODE', 'MTECH_FLOCK_ID'], row)
 		#print(df2)
 		df2 = df2[df2['PRODUCTION_DATE'] == df2['PRODUCTION_DATE'].max()].reset_index(drop=True)
 
