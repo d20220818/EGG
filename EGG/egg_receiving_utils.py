@@ -62,3 +62,25 @@ def resume(df):
 		print(f"{s} Não incubáveis (Quantidades com erros) - {df2[~df2['EGG_CLASS'].isin(HEX)]['EGGS'].sum()}")
 		print(f"{s} Total - {df2['EGGS'].sum()}\n")
 	print('\nDone!')
+
+def simulate_production(classified, received):
+	result = pd.DataFrame(data=[], columns=classified.columns)
+	received['PRODUCTION_DATE'] = received['PRODUCTION_DATE'].ffill()
+	received['GTA_NUMBER'] = received['GTA_NUMBER'].ffill()
+	for i, row in received.iterrows():
+		df2 = dfu.select(classified, ['STRAIN_CODE', 'MTECH_FLOCK_ID'], row)
+		#print(df2)
+		df2 = df2[df2['PRODUCTION_DATE'] == df2['PRODUCTION_DATE'].max()].reset_index(drop=True)
+
+		if df2.shape[0] == 0:
+			continue
+
+	
+		df2 = dfu.resum(df2, row['EGGS'], 'EGGS')
+	
+		df2['GTA_NUMBER'] = row['GTA_NUMBER']
+		df2['PRODUCTION_DATE'] = row['PRODUCTION_DATE']
+		df2['FLOCK_AGE'] = row['FLOCK_AGE']
+		result = pd.concat([result, df2], ignore_index=True)
+		return result
+
