@@ -18,6 +18,7 @@
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/matrix_utility.py": "./pyx/matrix_utility.py",
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/osx.py": "./pyx/osx.py",
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/pypdfx.py": "./pyx/pypdfx.py",
-		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/pyscriptx.py": "./pyx/pyscriptx.py"
+		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/pyscriptx.py": "./pyx/pyscriptx.py",
+		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/xl.py": "./pyx/xl.py"
 	}
 }
