@@ -1,6 +1,6 @@
 import pandas as pd
 from EGG.hatchery import *
-from pyx.dataframe_utility import segment, select
+from pyx.dataframe_utility import segment, select, resum
 
 def check(df, start_date=None, end_date=None):
 	if start_date == None:
@@ -76,7 +76,7 @@ def simulate_production(classified, received):
 			continue
 
 	
-		df2 = dfu.resum(df2, row['EGGS'], 'EGGS')
+		df2 = resum(df2, row['EGGS'], 'EGGS')
 	
 		df2['GTA_NUMBER'] = row['GTA_NUMBER']
 		df2['PRODUCTION_DATE'] = row['PRODUCTION_DATE']
