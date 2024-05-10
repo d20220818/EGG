@@ -8,7 +8,7 @@ from pyx.array_utility import concat
 from datetime import datetime as dt
 from openpyxl import Workbook, load_workbook
 
-from alpha.pyhatchery import line, egg_height
+from EGG.hatchery import line, egg_height
 
 # set the chained_assignment option
 #pd.options.mode.chained_assignment = "raise" # raises exception in case of warning
