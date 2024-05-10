@@ -281,7 +281,7 @@ def gerar_composicao(hatch, orders, vaccines, gtas, comp2xl):
 	hatch = hatch.sort_values(by=['HATCH_DATE', 'ORDERNO', 'CUSTNAME', 'FARM_NAME', 'GTA_NUMBER', 'FARM_CODE', 'MTECH_FLOCK_ID', 'STRAIN_CODE'])
 
 
-	hatch = fillgtas(sheet, gtas)
+	hatch = fillgtas(hatch, gtas)
 	
 	result = []
 	for df in segment(hatch, ['HATCH_DATE', 'ORDERNO']):
