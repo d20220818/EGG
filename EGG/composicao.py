@@ -273,14 +273,16 @@ def inserir_vacinas_ph(ws, orders, date, vaccines, min_col = 4):
 
 	return ws
 
-def gerar_composicao(sorted_sheet, orders, vaccines, comp2xl):
+def gerar_composicao(hatch, orders, vaccines, comp2xl):
+	
 
+	
 	wb = EmptyWorkbook()
 
 	date_column = 'HATCH_DATE' if comp2xl.__name__ == 'comp_aves' else 'SHIP_DATE'
 	title = 'COMPOSIÇÃO DE ' + ('NASCIMENTO' if comp2xl.__name__ == 'comp_aves' else 'EXPORTAÇÃO DE OVOS')
 
-	for hd in sorted_sheet[date_column].unique():
+	for hd in hatch[date_column].unique():
 		strhd = pd.to_datetime(hd, dayfirst=True).date()
 	
 		ws = wb.create_sheet(title=strhd.strftime("%d-%m-%Y")) #str(hd)[:10])
@@ -297,8 +299,8 @@ def gerar_composicao(sorted_sheet, orders, vaccines, comp2xl):
 
 		set_range_border(matrices[1][0], 1, 1, 1, 2)
 		order_count = 0
-		for on in sorted_sheet[sorted_sheet[date_column] == hd]['ORDERNO'].unique():
-			report = sorted_sheet[sorted_sheet['ORDERNO'] == on]
+		for on in hatch[hatch[date_column] == hd]['ORDERNO'].unique():
+			report = hatch[hatch['ORDERNO'] == on]
 		
 			#print(on)
 			for cn in report['CUSTNAME'].unique():
