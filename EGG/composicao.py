@@ -21,16 +21,16 @@ def str_strain_flock(df):
 	df['STRAIN_CODE'] = df['STRAIN_CODE'].map(lambda x: str(x))
 	return df
 
-def read_hatch_results(csv_file, parse_dates=['PRODUCTION_DATE', 'HATCH_DATE']):
-	df = pd.read_csv(csv_file, sep=';', parse_dates=parse_dates, dayfirst=True, encoding='latin-1')
+def init_hatch_results(df, parse_dates=['PRODUCTION_DATE', 'HATCH_DATE']):
+	for x in parse_dates:
+		df[x] = pd.to_datetime(df[x], dayfirst=True)
 	df = str_strain_flock(df)
 	#df['EGG_HEIGHT'] = df['EGG_CLASS'].map(egg_height)
 	if 'LINE' not in df.columns:
 		df['LINE'] = df['STRAIN_CODE'].map(line)
 	return df
 
-def read_set_grid(excel_file):
-	df = pd.read_excel(excel_file)
+def init_set_grid(df):
 	df['HATCH DATE'] = pd.to_datetime(df['HATCH DATE'], dayfirst=True)
 	df['STRAIN'] = df['STRAIN'].map(lambda x: str(x))
 	df['DIVISION'] = df['DIVISION'].fillna('')
@@ -273,9 +273,20 @@ def inserir_vacinas_ph(ws, orders, date, vaccines, min_col = 4):
 
 	return ws
 
-def gerar_composicao(hatch, orders, vaccines, comp2xl):
-	
+def gerar_composicao(hatch, orders, vaccines, gtas, comp2xl):
+	hatch = init_hatch_results(hatch)
+	orders = init_set_grid(orders)
+	gtas = str_strain_flock(gtas)
+	#hatch = hatch.sort_values(by=['HATCH_DATE', 'ORDERNO', 'CUSTNAME', 'EGG_HEIGHT', 'FLOCK_AGE', 'GTA_NUMBER', 'FARM_CODE', 'MTECH_FLOCK_ID', 'STRAIN_CODE'])
+	hatch = hatch.sort_values(by=['HATCH_DATE', 'ORDERNO', 'CUSTNAME', 'FARM_NAME', 'GTA_NUMBER', 'FARM_CODE', 'MTECH_FLOCK_ID', 'STRAIN_CODE'])
 
+
+	hatch = fillgtas(sheet, gtas)
+	
+	result = []
+	for df in segment(hatch, ['HATCH_DATE', 'ORDERNO']):
+		result += divideit(df, orders)
+	hatch = pd.concat(result, ignore_index=True)
 	
 	wb = EmptyWorkbook()
 
@@ -318,5 +329,5 @@ def gerar_composicao(hatch, orders, vaccines, comp2xl):
 		set_columns_width(ws, 23)
 
 	print("Done!")
-	return wb
+	return [wb, hatch]
 	
