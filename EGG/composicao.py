@@ -16,12 +16,14 @@ from alpha.pyhatchery import line, egg_height
 pd.options.mode.chained_assignment = None    # no warning message and no exception is raised
 
 
-
+def str_strain_flock(df):
+	df['MTECH_FLOCK_ID'] = df['MTECH_FLOCK_ID'].map(lambda x: '{:0>5}'.format(x))
+	df['STRAIN_CODE'] = df['STRAIN_CODE'].map(lambda x: str(x))
+	return df
 
 def read_hatch_results(csv_file, parse_dates=['PRODUCTION_DATE', 'HATCH_DATE']):
 	df = pd.read_csv(csv_file, sep=';', parse_dates=parse_dates, dayfirst=True, encoding='latin-1')
-	df['MTECH_FLOCK_ID'] = df['MTECH_FLOCK_ID'].map(lambda x: '{:0>5}'.format(x))
-	df['STRAIN_CODE'] = df['STRAIN_CODE'].map(lambda x: str(x))
+	df = str_strain_flock(df)
 	#df['EGG_HEIGHT'] = df['EGG_CLASS'].map(egg_height)
 	if 'LINE' not in df.columns:
 		df['LINE'] = df['STRAIN_CODE'].map(line)
