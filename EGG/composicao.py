@@ -47,7 +47,7 @@ def fillgtas(sheet, gtas):
 		sheet['GTA_NUMBER'] = ''
 	gta = sheet.columns.get_loc('GTA_NUMBER')
 	for i in range(sheet.shape[0]):
-		#print(sheet.iloc[i, gta])
+		print(sheet.iloc[i, gta])
 		if not isnull(sheet.iloc[i, gta]): continue
 		print(gtas)
 		idx = row_of(gtas, { 'PRODUCTION_DATE': sheet['PRODUCTION_DATE'][i], 'MTECH_FLOCK_ID': sheet['MTECH_FLOCK_ID'][i], 'STRAIN_CODE': sheet['STRAIN_CODE'][i] })
