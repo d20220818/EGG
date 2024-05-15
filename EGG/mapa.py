@@ -1,5 +1,5 @@
 import pandas as pd
-from pyx.dataframe_utility import join, fillnext
+from pyx.pandasx import join, fillnext
 from EGG.hatchery import breed, production
 
 def summary(objs, by): return [x.groupby(by=by).sum(numeric_only=True).reset_index() for x in objs]
