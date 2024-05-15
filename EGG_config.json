@@ -11,7 +11,7 @@
 		
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/__init__.py": "./pyx/__init__.py",
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/array_utility.py": "./pyx/array_utility.py",
-		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/dataframe_utility.py": "./pyx/dataframe_utility.py",	
+		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/pandasx.py": "./pyx/pandasx.py",	
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/mat/mat.py": "./pyx/mat/mat.py",
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/mat/rect.py": "./pyx/mat/rect.py",
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/mat/vector.py": "./pyx/mat/vector.py",
