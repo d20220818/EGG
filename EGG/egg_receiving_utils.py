@@ -1,6 +1,6 @@
 import pandas as pd
 from EGG.hatchery import *
-from pyx.dataframe_utility import segment, select, resum
+from pyx.pandasx import segment, select, resum
 
 def check(df, start_date=None, end_date=None):
 	if start_date == None:
