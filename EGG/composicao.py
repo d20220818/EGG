@@ -281,8 +281,8 @@ def gerar_composicao(hatch, orders, vaccines, gtas, comp2xl):
 	hatch = hatch.sort_values(by=['HATCH_DATE', 'ORDERNO', 'CUSTNAME', 'FARM_NAME', 'GTA_NUMBER', 'FARM_CODE', 'MTECH_FLOCK_ID', 'STRAIN_CODE'])
 
 	
-	gtas['PRODUCTION_DATE'] = gtas['PRODUCTION_DATE'].map(lambda x: return pd.to_datetime(x).strftime('%Y-%m-%d))
-	hatch['PRODUCTION_DATE'] = hatch['PRODUCTION_DATE'].map(lambda x: return pd.to_datetime(x).strftime('%Y-%m-%d))
+	gtas['PRODUCTION_DATE'] = gtas['PRODUCTION_DATE'].map(lambda x: return pd.to_datetime(x).strftime('%Y-%m-%d'))
+	hatch['PRODUCTION_DATE'] = hatch['PRODUCTION_DATE'].map(lambda x: return pd.to_datetime(x).strftime('%Y-%m-%d'))
 
 	hatch = fillgtas(hatch, gtas)
 	
