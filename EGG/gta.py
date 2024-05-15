@@ -1,7 +1,7 @@
 import pandas as pd
 from pyx.xl import *
 import datetime as dtm
-import pyx.dataframe_utility as pdx
+import pyx.pandasx as pdx
 
 def atualizar_gtas(wb2, sheet):
 	sorted_sheet = sheet.sort_values(by=['FARM_NAME', 'PRODUCTION_DATE', 'FARM_CODE', 'MTECH_FLOCK_ID', 'GTA_NUMBER'])
