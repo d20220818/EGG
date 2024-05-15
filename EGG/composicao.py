@@ -49,7 +49,7 @@ def fillgtas(sheet, gtas):
 	for i in range(sheet.shape[0]):
 		#print(sheet.iloc[i, gta])
 		if not isnull(sheet.iloc[i, gta]): continue
-		#print(gtas)
+		print(sheet['MTECH_FLOCK_ID'][i])
 		idx = row_of(gtas, { 'PRODUCTION_DATE': sheet['PRODUCTION_DATE'][i], 'MTECH_FLOCK_ID': sheet['MTECH_FLOCK_ID'][i], 'STRAIN_CODE': sheet['STRAIN_CODE'][i] })
 		print(idx)
 		if idx > -1: sheet.iloc[i, gta] = gtas['GTA_NUMBER'][idx]
