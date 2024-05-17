@@ -27,6 +27,15 @@ def production(farm_code): return 'PRODUÇÃO EXTERNA' if 'EXT' in farm_code els
 def line(strain):
 	return au.group_of({'F': ['AP95', 'APN', 'F47', 'F72'], 'M': ['344', 'M35', 'M65', 'M77', 'ROM'], 'A': ['AH'], '1': ['AHB'], '4': ['BHB'], '7': ['CHB'], '8': ['DHB']}, strain)
 
+def find_line(db, strain : str): #db is a DataFrame
+	db['NAME'] = db['NAME'].map(lambda x: str(x))
+	query = db.loc[db['NAME'] == str(strain)]
+	if query.shape[0] > 0:
+		return ['LINE'].iloc[0]
+	else:
+		print('Line not found')
+
+
 def breed(strain):
 	return au.group_of({'ROSS': ['AP95', 'APN', '344', 'ROM'], 'HUBBARD': ['F47', 'F72', 'M35', 'M65', 'M77']}, strain)
 
