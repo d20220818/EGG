@@ -35,6 +35,9 @@ def find_line(db, strain : str): #db is a DataFrame
 	else:
 		print('Line not found')
 
+def lines(db, strains): #db is a DataFrame and strains is a Series
+	return strains.map(lambda x: find_line(db, x))
+		
 
 def breed(strain):
 	return au.group_of({'ROSS': ['AP95', 'APN', '344', 'ROM'], 'HUBBARD': ['F47', 'F72', 'M35', 'M65', 'M77']}, strain)
