@@ -8,7 +8,7 @@ from pyx.array_utility import concat
 from datetime import datetime as dt
 from openpyxl import Workbook, load_workbook
 
-from EGG.hatchery import line, egg_height
+from EGG.hatchery import line, egg_height, lines
 
 # set the chained_assignment option
 #pd.options.mode.chained_assignment = "raise" # raises exception in case of warning
@@ -21,21 +21,27 @@ def str_strain_flock(df):
 	df['STRAIN_CODE'] = df['STRAIN_CODE'].map(lambda x: str(x))
 	return df
 
-def init_hatch_results(df, parse_dates=['PRODUCTION_DATE', 'HATCH_DATE']):
+def init_hatch_results(df, parse_dates=['PRODUCTION_DATE', 'HATCH_DATE'], db=None):
 	for x in parse_dates:
 		df[x] = pd.to_datetime(df[x], dayfirst=True)
 	df = str_strain_flock(df)
 	#df['EGG_HEIGHT'] = df['EGG_CLASS'].map(egg_height)
 	if 'LINE' not in df.columns:
-		df['LINE'] = df['STRAIN_CODE'].map(line)
+		if db == None:
+			df['LINE'] = df['STRAIN_CODE'].map(line)
+		else:
+			df['LINE'] = lines(db, df['STRAIN_CODE'])
 	return df
 
-def init_set_grid(df):
+def init_set_grid(df, db=None):
 	df['HATCH DATE'] = pd.to_datetime(df['HATCH DATE'], dayfirst=True)
 	df['STRAIN'] = df['STRAIN'].map(lambda x: str(x))
 	df['DIVISION'] = df['DIVISION'].fillna('')
 	df['DIVISION'] = df['DIVISION'].map(lambda x: str(x))
-	df['LINE'] = df['STRAIN'].map(line)
+	if db == None:
+		df['LINE'] = df['STRAIN'].map(line)
+	else:
+		df['LINE'] = lines(db, df['STRAIN_CODE'])
 	df = df[df['ORDER STATUS'] != 'Cancelled'].reset_index()
 	df['PP'] = df['MALES'] + df['FEMALES']
 	fillnext(df, ['ORDER NUMBER', 'CUSTOMER NAME', 'COUNTRY', 'HATCH DATE', 'CHXBOX'])
@@ -273,9 +279,9 @@ def inserir_vacinas_ph(ws, orders, date, vaccines, min_col = 4):
 
 	return ws
 
-def gerar_composicao(hatch, orders, vaccines, gtas, comp2xl):
-	hatch = init_hatch_results(hatch)
-	orders = init_set_grid(orders)
+def gerar_composicao(hatch, orders, vaccines, gtas, comp2xl, strains=None):
+	hatch = init_hatch_results(hatch, strains)
+	orders = init_set_grid(orders, strains)
 	gtas = str_strain_flock(gtas)
 	#hatch = hatch.sort_values(by=['HATCH_DATE', 'ORDERNO', 'CUSTNAME', 'EGG_HEIGHT', 'FLOCK_AGE', 'GTA_NUMBER', 'FARM_CODE', 'MTECH_FLOCK_ID', 'STRAIN_CODE'])
 	hatch = hatch.sort_values(by=['HATCH_DATE', 'ORDERNO', 'CUSTNAME', 'FARM_NAME', 'GTA_NUMBER', 'FARM_CODE', 'MTECH_FLOCK_ID', 'STRAIN_CODE'])
