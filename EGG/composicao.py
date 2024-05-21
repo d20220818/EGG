@@ -280,8 +280,8 @@ def inserir_vacinas_ph(ws, orders, date, vaccines, min_col = 4):
 	return ws
 
 def gerar_composicao(hatch, orders, vaccines, gtas, comp2xl, strains=None):
-	hatch = init_hatch_results(hatch, strains)
-	orders = init_set_grid(orders, strains)
+	hatch = init_hatch_results(hatch, db=strains)
+	orders = init_set_grid(orders, db=strains)
 	gtas = str_strain_flock(gtas)
 	#hatch = hatch.sort_values(by=['HATCH_DATE', 'ORDERNO', 'CUSTNAME', 'EGG_HEIGHT', 'FLOCK_AGE', 'GTA_NUMBER', 'FARM_CODE', 'MTECH_FLOCK_ID', 'STRAIN_CODE'])
 	hatch = hatch.sort_values(by=['HATCH_DATE', 'ORDERNO', 'CUSTNAME', 'FARM_NAME', 'GTA_NUMBER', 'FARM_CODE', 'MTECH_FLOCK_ID', 'STRAIN_CODE'])
