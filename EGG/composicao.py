@@ -39,7 +39,7 @@ def init_set_grid(df, db=None):
 	df['DIVISION'] = df['DIVISION'].fillna('')
 	df['DIVISION'] = df['DIVISION'].map(lambda x: str(x))
 	if isinstance(db, pd.DataFrame):
-		df['LINE'] = lines(db, df['STRAIN_CODE'])
+		df['LINE'] = lines(db, df['STRAIN'])
 	else:
 		df['LINE'] = df['STRAIN'].map(line)
 	df = df[df['ORDER STATUS'] != 'Cancelled'].reset_index()
