@@ -28,9 +28,9 @@ def init_hatch_results(df, parse_dates=['PRODUCTION_DATE', 'HATCH_DATE'], db=Non
 	#df['EGG_HEIGHT'] = df['EGG_CLASS'].map(egg_height)
 	if 'LINE' not in df.columns:
 		if isinstance(db, pd.DataFrame):
-			df['LINE'] = df['STRAIN_CODE'].map(line)
-		else:
 			df['LINE'] = lines(db, df['STRAIN_CODE'])
+		else:
+			df['LINE'] = df['STRAIN_CODE'].map(line)
 	return df
 
 def init_set_grid(df, db=None):
@@ -39,9 +39,9 @@ def init_set_grid(df, db=None):
 	df['DIVISION'] = df['DIVISION'].fillna('')
 	df['DIVISION'] = df['DIVISION'].map(lambda x: str(x))
 	if isinstance(db, pd.DataFrame):
-		df['LINE'] = df['STRAIN'].map(line)
-	else:
 		df['LINE'] = lines(db, df['STRAIN_CODE'])
+	else:
+		df['LINE'] = df['STRAIN'].map(line)
 	df = df[df['ORDER STATUS'] != 'Cancelled'].reset_index()
 	df['PP'] = df['MALES'] + df['FEMALES']
 	fillnext(df, ['ORDER NUMBER', 'CUSTOMER NAME', 'COUNTRY', 'HATCH DATE', 'CHXBOX'])
