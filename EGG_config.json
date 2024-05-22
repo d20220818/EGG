@@ -8,6 +8,7 @@
 		"https://raw.githubusercontent.com/d20220818/EGG/main/EGG/hatchery.py": "./EGG/hatchery.py",
 		"https://raw.githubusercontent.com/d20220818/EGG/main/EGG/mapa.py": "./EGG/mapa.py",
 		"https://raw.githubusercontent.com/d20220818/EGG/main/EGG/ordens_de_lote.py": "./EGG/ordens_de_lote.py",
+		"https://raw.githubusercontent.com/d20220818/EGG/main/EGG/jsheet_utils.py": "./EGG/jsheet_utils.py",
 		
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/__init__.py": "./pyx/__init__.py",
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/array_utility.py": "./pyx/array_utility.py",
