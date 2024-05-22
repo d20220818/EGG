@@ -1,6 +1,7 @@
 from js import document
 import pandas as pd
 import pyx.osx as osx
+from pyx.pyscriptx import to_bytes
 
 async def read_File(obj, sheet_name=0):
 	filepath_or_buffer = await to_bytes(obj)
