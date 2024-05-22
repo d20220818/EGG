@@ -1,3 +1,4 @@
+from js import document
 import pandas as pd
 import pyx.osx as osx
 
