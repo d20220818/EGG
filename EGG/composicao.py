@@ -57,7 +57,7 @@ def fillgtas(sheet, gtas):
 		if not isnull(sheet.iloc[i, gta]): continue
 		#print(sheet['MTECH_FLOCK_ID'][i])
 		idx = row_of(gtas, { 'PRODUCTION_DATE': sheet['PRODUCTION_DATE'].iloc[i], 'MTECH_FLOCK_ID': sheet['MTECH_FLOCK_ID'].iloc[i], 'STRAIN_CODE': sheet['STRAIN_CODE'].iloc[i] })
-		print(idx)
+		#print(idx)
 		if idx > -1: sheet.iloc[i, gta] = gtas['GTA_NUMBER'][idx]
 		else: sheet.iloc[i, gta] = '-'
 	return sheet
