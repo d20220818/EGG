@@ -27,7 +27,7 @@ def init_hatch_results(df, parse_dates=['PRODUCTION_DATE', 'HATCH_DATE'], db=Non
 	df = str_strain_flock(df)
 	#df['EGG_HEIGHT'] = df['EGG_CLASS'].map(egg_height)
 	if 'LINE' not in df.columns:
-		if db == None:
+		if isinstance(db, pd.DataFrame):
 			df['LINE'] = df['STRAIN_CODE'].map(line)
 		else:
 			df['LINE'] = lines(db, df['STRAIN_CODE'])
@@ -38,7 +38,7 @@ def init_set_grid(df, db=None):
 	df['STRAIN'] = df['STRAIN'].map(lambda x: str(x))
 	df['DIVISION'] = df['DIVISION'].fillna('')
 	df['DIVISION'] = df['DIVISION'].map(lambda x: str(x))
-	if db == None:
+	if isinstance(db, pd.DataFrame):
 		df['LINE'] = df['STRAIN'].map(line)
 	else:
 		df['LINE'] = lines(db, df['STRAIN_CODE'])
