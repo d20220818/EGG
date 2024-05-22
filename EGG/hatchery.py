@@ -31,7 +31,7 @@ def find_line(db, strain : str): #db is a DataFrame
 	db['NAME'] = db['NAME'].map(lambda x: str(x))
 	query = db.loc[db['NAME'] == str(strain)]
 	if query.shape[0] > 0:
-		return ['LINE'].iloc[0]
+		return query['LINE'].iloc[0]
 	else:
 		print('Line not found')
 
