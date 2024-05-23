@@ -172,12 +172,9 @@ def gerar_programa_sexagem(sh, db, date):
 	h, w = img.height * (40 / img.height), img.width * (40 / img.height)
 	position = XDRPoint2D(p2e(5), p2e(5))
 	size = XDRPositiveSize2D(p2e(w), p2e(h))
-	img.anchor = AbsoluteAnchor(pos=position, ext=size)"""
-
-	
-
+	img.anchor = AbsoluteAnchor(pos=position, ext=size)
 	#img.anchor = 'A1'
-	ws.add_image(img)
+	ws.add_image(img)"""
 
 	fit(ws)
 	return wb
