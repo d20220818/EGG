@@ -35,6 +35,14 @@ def find_line(db, strain : str): #db is a DataFrame
 	else:
 		print('Line not found')
 
+def find_product(db, strain : str): #db is a DataFrame
+	db['NAME'] = db['NAME'].map(lambda x: str(x))
+	query = db.loc[db['NAME'] == str(strain)]
+	if query.shape[0] > 0:
+		return query['PRODUCT'].iloc[0]
+	else:
+		print('Product not found')
+
 def find_farm_name(db, code : str): #db is a DataFrame
 	db['FARM_CODE'] = db['FARM_CODE'].map(lambda x: '{:0>3}'.format(x))
 	code = code.split('.')[0]
@@ -51,7 +59,9 @@ def farm_names(db, codes): #db is a DataFrame
 
 def lines(db, strains): #db is a DataFrame and strains is a Series
 	return strains.map(lambda x: find_line(db, x))
-		
+
+def products(db, strains): #db is a DataFrame and strains is a Series
+	return strains.map(lambda x: find_product(db, x))
 
 def breed(strain):
 	return au.group_of({'ROSS': ['AP95', 'APN', '344', 'ROM'], 'HUBBARD': ['F47', 'F72', 'M35', 'M65', 'M77']}, strain)
