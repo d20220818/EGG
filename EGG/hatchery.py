@@ -36,6 +36,7 @@ def find_line(db, strain : str): #db is a DataFrame
 		print('Line not found')
 
 def find_farm_name(db, code : str): #db is a DataFrame
+	df['FARM_CODE'] = df['FARM_CODE'].map(lambda x: '{:0>3}'.format(x))
 	code = code.split('.')[0]
 	print(code)
 	print(db['FARM_CODE'])
