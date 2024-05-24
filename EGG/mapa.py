@@ -9,7 +9,7 @@ def MAPA_production(clas, inc, nasc, db):
   for df in [clas, inc, nasc]:
 	  df['MTECH_FLOCK_ID'] = df['FARM_CODE'].map(lambda x: '/'.join(sorted(df[df['FARM_CODE'] == x]['MTECH_FLOCK_ID'].unique())))
 	  #df['BREED'] = df['STRAIN_CODE'].map(lambda x: breed(x))
-	  df['PRODUCT'] = products(db, data['FARM_CODE'])
+	  df['PRODUCT'] = products(db, df['STRAIN_CODE'])
 
   on = ['FARM_CODE', 'MTECH_FLOCK_ID', 'PRODUCT']#'BREED']
   data = join(summary([clas, inc, nasc], on), on)
