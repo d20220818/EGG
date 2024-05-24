@@ -8,9 +8,10 @@ def MAPA_production(clas, inc, nasc, db):
 
   for df in [clas, inc, nasc]:
 	  df['MTECH_FLOCK_ID'] = df['FARM_CODE'].map(lambda x: '/'.join(sorted(df[df['FARM_CODE'] == x]['MTECH_FLOCK_ID'].unique())))
-	  df['BREED'] = df['STRAIN_CODE'].map(lambda x: breed(x))
+	  #df['BREED'] = df['STRAIN_CODE'].map(lambda x: breed(x))
+	  df['PRODUCT'] = products(db, data['FARM_CODE'])
 
-  on = ['FARM_CODE', 'MTECH_FLOCK_ID', 'BREED']
+  on = ['FARM_CODE', 'MTECH_FLOCK_ID', 'PRODUCT']#'BREED']
   data = join(summary([clas, inc, nasc], on), on)
 
   data['TOTAL SALEABLE_2'] = data.apply(lambda x: x['TO_CHICKS_2'] - (x['PRE_SEX_CULLS_2'] + x['PRIME_CULLS_2']), axis=1)
@@ -26,8 +27,9 @@ def MAPA_production(clas, inc, nasc, db):
 	  'Pintos nascidos', 'Pintos vendáveis'
   ]
 
-  data = data.rename(columns=dict(zip(['MTECH_FLOCK_ID', 'PRODUCTION', 'FARM_NAME', 'FARM_CODE', 'BREED', 'EGGS', 'EGGS_1', 'TO_CHICKS_2', 'TOTAL SALEABLE_2'], new_columns)))
-
+  #data = data.rename(columns=dict(zip(['MTECH_FLOCK_ID', 'PRODUCTION', 'FARM_NAME', 'FARM_CODE', 'BREED', 'EGGS', 'EGGS_1', 'TO_CHICKS_2', 'TOTAL SALEABLE_2'], new_columns)))
+  data = data.rename(columns=dict(zip(['MTECH_FLOCK_ID', 'PRODUCTION', 'FARM_NAME', 'FARM_CODE', 'PRODUCT', 'EGGS', 'EGGS_1', 'TO_CHICKS_2', 'TOTAL SALEABLE_2'], new_columns)))
+	
   data = data.reindex(columns=new_columns)
 
   #print(data)
