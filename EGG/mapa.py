@@ -16,7 +16,7 @@ def MAPA_production(clas, inc, nasc, db):
   data['TOTAL SALEABLE_2'] = data.apply(lambda x: x['TO_CHICKS_2'] - (x['PRE_SEX_CULLS_2'] + x['PRIME_CULLS_2']), axis=1)
   data = data[on + ['EGGS', 'EGGS_1', 'TO_CHICKS_2', 'TOTAL SALEABLE_2']].fillna(0)
 
-  data['FARM_NAME'] = get_farm_name(db, data['FARM_CODE'])
+  data['FARM_NAME'] = farm_names(db, data['FARM_CODE'])
   #data['FARM_CODE'].map(lambda x: {'001': 'GRANJA 1.2', '004': 'GRANJA 4.6', '012': 'GRANJA SF', '014': 'GRANJA MINA', '022': 'GRANJA ITAPEVA', '013': 'GRANJA IPUIUNA', '007': 'GRANJA 7', '016': 'GRANJA LUZIANIA'}[x[:3]])
 
   data['PRODUCTION'] = data['FARM_CODE'].map(lambda x: production(x))
