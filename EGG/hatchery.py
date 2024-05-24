@@ -35,6 +35,16 @@ def find_line(db, strain : str): #db is a DataFrame
 	else:
 		print('Line not found')
 
+def find_farm_name(db, code : str): #db is a DataFrame
+	query = db.loc[db['FARM_CODE'] == code.split('.')[0]]
+	if query.shape[0] > 0:
+		return query['FARM_NAME'].iloc[0]
+	else:
+		print('Farm code not found')
+
+def farm_names(db, codes): #db is a DataFrame
+	return codes.map(lambda x: find_farm_name(db, x))
+
 def lines(db, strains): #db is a DataFrame and strains is a Series
 	return strains.map(lambda x: find_line(db, x))
 		
