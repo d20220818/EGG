@@ -1,6 +1,6 @@
 import pandas as pd
 from pyx.pandasx import join, fillnext
-from EGG.hatchery import breed, production, get_farm_name
+from EGG.hatchery import breed, production, farm_names
 
 def summary(objs, by): return [x.groupby(by=by).sum(numeric_only=True).reset_index() for x in objs]
 
