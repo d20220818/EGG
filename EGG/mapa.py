@@ -69,7 +69,7 @@ def MAPA_vaccines(cadastro, saida, partidas, ordens, year, month): #Cadastro de 
 	ordens['HATCH DATE'] = pd.to_datetime(ordens['HATCH DATE'], dayfirst=True)
 
 	fillnext(ordens, ['ORDER STATUS', 'HATCH DATE', 'VACCINES'])
-
+	print(ordens)
 	ordens = ordens[ordens['ORDER STATUS'] != 'Cancelled'].reset_index()
 	ordens['TO_CHICKS_DISPATCHED'] = ordens['MALES'] + ordens['FEMALES']
 	
