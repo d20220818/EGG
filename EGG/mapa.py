@@ -84,6 +84,7 @@ def MAPA_vaccines(cadastro, saida, partidas, ordens, year, month): #Cadastro de 
 
 	for i in range(ordens.shape[0]):
 		vaccine_numbers = str(ordens.iloc[i, ordens.columns.get_loc('VACCINES')])
+		print(vaccine_numbers)
 		if pd.isnull(vaccine_numbers): continue
 		vaccine_numbers = vaccine_numbers.replace(' ', '').replace('.', ',').split(',')
 		for cod in vaccine_numbers:
