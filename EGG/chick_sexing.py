@@ -59,15 +59,15 @@ def gerar_programa_sexagem(sh, db, date):
 		ws[f'A{row}'].value = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'][hd.isocalendar().weekday % 7]
 		ws[f'B{row}'].value = hd.strftime('%d/%m/%Y')
 
-		fqty = str(sh[f'N{srcrow + 6}'].value).split('/')
-		mqty = str(sh[f'N{srcrow + 7}'].value).split('/')
+		fqty = [int(x) for x str(sh[f'N{srcrow + 6}'].value).split('/')]
+		mqty = [int(x) for x str(sh[f'N{srcrow + 7}'].value).split('/')]
 		try:
-			ws[f'C{row}'].value = sum([int(x) for x in fqty])
+			ws[f'C{row}'].value = sum(fqty)
 		except:
 			pass
 
 		try:
-			ws[f'D{row}'].value = sum([int(x) for x in mqty])
+			ws[f'D{row}'].value = sum(mqty)
 		except:
 			pass
 
@@ -125,14 +125,15 @@ def gerar_programa_sexagem(sh, db, date):
 				merge_range(lotes, strrow + 2, i * 3 + 1, strrow + 2, i * 3 + 2, re.sub(r'\([^)]*\)', '', x))#custs))
 
 				merge_range(lotes, strrow + 3, i * 3 + 1, strrow + 3, i * 3 + 2, 'LOTES')
-				set_row(lotes, strrow + 4, ['FÊMEA', 'MACHO'], i * 3 + 1)
+				set_row(lotes, strrow + 4, [fqty[j], mqty[j]], i * 3 + 1)
+				set_row(lotes, strrow + 5, ['FÊMEA', 'MACHO'], i * 3 + 1)
 
-				set_range_style(lotes, strrow + 1, i * 3 + 1, strrow + 3, i * 3 + 2, font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FF000000'))
+				set_range_style(lotes, strrow + 1, i * 3 + 1, strrow + 4, i * 3 + 2, font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FF000000'))
 				set_cell_style(lotes.cell(strrow + 2, i * 3 + 1), alignment=Alignment(wrap_text = True))
-				set_cell_style(lotes.cell(strrow + 4, i * 3 + 1), font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FFFF0000'))
-				set_cell_style(lotes.cell(strrow + 4, i * 3 + 2), font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FF0070C0'))
+				set_cell_style(lotes.cell(strrow + 5, i * 3 + 1), font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FFFF0000'))
+				set_cell_style(lotes.cell(strrow + 5, i * 3 + 2), font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FF0070C0'))
 
-				set_row(lotes, strrow + 5, [fqty[j], mqty[j]], i * 3 + 1)
+				
 				
 				print(x)
 				
