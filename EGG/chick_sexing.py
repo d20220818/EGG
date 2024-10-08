@@ -125,7 +125,7 @@ def gerar_programa_sexagem(sh, db, date):
 
 		if custs != '-':
 			siz = max(len(females), len(males))
-			for j, x in enumerate(custs.replace('\n', ' / ').split('/'))
+			for j, x in enumerate(custs.replace('\n', ' / ').split('/')):
 				print(x)
 				
 				set_col(lotes, i * 3 + 1, females, 5 + (siz + 6) * j)
