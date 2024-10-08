@@ -123,10 +123,15 @@ def gerar_programa_sexagem(sh, db, date):
 						males.append(sh[f'C{j}'].value)
 			except: pass
 
-		set_col(lotes, i * 3 + 1, females, 5)
-		set_col(lotes, i * 3 + 2, males, 5)
-		set_column_width(lotes, i * 3 + 1, 12)
-		set_column_width(lotes, i * 3 + 2, 12)
+		if custs != '-':
+			siz = max(len(females), len(males))
+			for j, x in enumerate(custs.replace('\n', ' / ').split('/'))
+				print(x)
+				
+				set_col(lotes, i * 3 + 1, females, 5 + (siz + 6) * j)
+				set_col(lotes, i * 3 + 2, males, 5 + (siz + 6) * j)
+				set_column_width(lotes, i * 3 + 1, 12)
+				set_column_width(lotes, i * 3 + 2, 12)
 
 	set_range_style(ws, 5, 1, 5, 10, font=Font(bold=True))
 	set_range_style(ws, 8, 1, 9, 10, font=Font(bold=True))
