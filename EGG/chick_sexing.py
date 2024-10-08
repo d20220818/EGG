@@ -100,16 +100,7 @@ def gerar_programa_sexagem(sh, db, date):
 			set_range_style(ws, row, 1, row, 10, fill=color_fill("FFFFFF00"))
 		row += 1
 
-		merge_range(lotes, 1, i * 3 + 1, 1, i * 3 + 2, hd.strftime('%d/%m/%Y'))
-		merge_range(lotes, 2, i * 3 + 1, 2, i * 3 + 2, re.sub(r'\([^)]*\)', '', custs))
 
-		merge_range(lotes, 3, i * 3 + 1, 3, i * 3 + 2, 'LOTES')
-		set_row(lotes, 4, ['FÊMEA', 'MACHO'], i * 3 + 1)
-
-		set_range_style(lotes, 1, i * 3 + 1, 3, i * 3 + 2, font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FF000000'))
-		set_cell_style(lotes.cell(2, i * 3 + 1), alignment=Alignment(wrap_text = True))
-		set_cell_style(lotes.cell(4, i * 3 + 1), font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FFFF0000'))
-		set_cell_style(lotes.cell(4, i * 3 + 2), font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FF0070C0'))
 	
 		females = []
 		males = []
@@ -126,10 +117,25 @@ def gerar_programa_sexagem(sh, db, date):
 		if custs != '-':
 			siz = max(len(females), len(males))
 			for j, x in enumerate(custs.replace('\n', ' / ').split('/')):
+
+				strrow = (siz + 6) * j
+				merge_range(lotes, strrow + 1, i * 3 + 1, strrow + 1, i * 3 + 2, hd.strftime('%d/%m/%Y'))
+				merge_range(lotes, strrow + 2, i * 3 + 1, strrow + 2, i * 3 + 2, re.sub(r'\([^)]*\)', '', x))#custs))
+
+				merge_range(lotes, strrow + 3, i * 3 + 1, strrow + 3, i * 3 + 2, 'LOTES')
+				set_row(lotes, strrow + 4, ['FÊMEA', 'MACHO'], i * 3 + 1)
+
+				set_range_style(lotes, strrow + 1, i * 3 + 1, strrow + 3, i * 3 + 2, font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FF000000'))
+				set_cell_style(lotes.cell(strrow + 2, i * 3 + 1), alignment=Alignment(wrap_text = True))
+				set_cell_style(lotes.cell(strrow + 4, i * 3 + 1), font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FFFF0000'))
+				set_cell_style(lotes.cell(strrow + 4, i * 3 + 2), font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FF0070C0'))
+
+
+				
 				print(x)
 				
-				set_col(lotes, i * 3 + 1, females, 5 + (siz + 6) * j)
-				set_col(lotes, i * 3 + 2, males, 5 + (siz + 6) * j)
+				set_col(lotes, i * 3 + 1, females, strrow + 5)
+				set_col(lotes, i * 3 + 2, males, strrow + 5)
 				set_column_width(lotes, i * 3 + 1, 12)
 				set_column_width(lotes, i * 3 + 2, 12)
 
