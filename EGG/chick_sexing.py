@@ -59,17 +59,21 @@ def gerar_programa_sexagem(sh, db, date):
 		ws[f'A{row}'].value = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'][hd.isocalendar().weekday % 7]
 		ws[f'B{row}'].value = hd.strftime('%d/%m/%Y')
 
-		fqty = [int(x) for x in str(sh[f'N{srcrow + 6}'].value).split('/')]
-		mqty = [int(x) for x in str(sh[f'N{srcrow + 7}'].value).split('/')]
+		fqty = ''
+		mqty = ''
 		try:
-			ws[f'C{row}'].value = sum(fqty)
+			fqty = [int(x) for x in str(sh[f'N{srcrow + 6}'].value).split('/')]
 		except:
 			pass
+		try:
+			mqty = [int(x) for x in str(sh[f'N{srcrow + 7}'].value).split('/')]
+		except:
+			pass
+		
 
-		try:
-			ws[f'D{row}'].value = sum(mqty)
-		except:
-			pass
+		
+		ws[f'C{row}'].value = sum(fqty)
+		ws[f'D{row}'].value = sum(mqty)
 
 		ws[f'E{row}'].value = f'=ROUNDUP(((C{row}*1.05)+(D{row}*1.1))*2, 0)'
 		ws[f'F{row}'].value = sh[f'N{srcrow + 4}'].value
