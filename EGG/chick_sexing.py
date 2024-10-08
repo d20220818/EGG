@@ -59,13 +59,15 @@ def gerar_programa_sexagem(sh, db, date):
 		ws[f'A{row}'].value = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'][hd.isocalendar().weekday % 7]
 		ws[f'B{row}'].value = hd.strftime('%d/%m/%Y')
 
+		fqty = str(sh[f'N{srcrow + 6}'].value).split('/')
+		mqty = str(sh[f'N{srcrow + 7}'].value).split('/')
 		try:
-			ws[f'C{row}'].value = sum([int(x) for x in str(sh[f'N{srcrow + 6}'].value).split('/')])
+			ws[f'C{row}'].value = sum([int(x) for x in fqty])
 		except:
 			pass
 
 		try:
-			ws[f'D{row}'].value = sum([int(x) for x in str(sh[f'N{srcrow + 7}'].value).split('/')])
+			ws[f'D{row}'].value = sum([int(x) for x in mqty])
 		except:
 			pass
 
@@ -130,12 +132,12 @@ def gerar_programa_sexagem(sh, db, date):
 				set_cell_style(lotes.cell(strrow + 4, i * 3 + 1), font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FFFF0000'))
 				set_cell_style(lotes.cell(strrow + 4, i * 3 + 2), font=Font(bold=True, color='FFFFFFFF'), fill=color_fill('FF0070C0'))
 
-
+				set_row(lotes, strrow + 5, [fqty[j], mqty[j]], i * 3 + 1)
 				
 				print(x)
 				
-				set_col(lotes, i * 3 + 1, females, strrow + 5)
-				set_col(lotes, i * 3 + 2, males, strrow + 5)
+				set_col(lotes, i * 3 + 1, females, strrow + 6)
+				set_col(lotes, i * 3 + 2, males, strrow + 6)
 				set_column_width(lotes, i * 3 + 1, 12)
 				set_column_width(lotes, i * 3 + 2, 12)
 
