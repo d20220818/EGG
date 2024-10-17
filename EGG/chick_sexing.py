@@ -69,8 +69,10 @@ def gerar_programa_sexagem(sh, db, date):
 			mqty = [int(x) for x in str(sh[f'N{srcrow + 7}'].value).split('/')]
 		except:
 			pass
-		
 
+		mx = max(len(fqty), len(mqty))
+		fqty += [0] * (mx - len(fqty))
+		mqty += [0] * (mx - len(mqty))
 		
 		ws[f'C{row}'].value = sum(fqty)
 		ws[f'D{row}'].value = sum(mqty)
