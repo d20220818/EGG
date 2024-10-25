@@ -59,8 +59,8 @@ def gerar_programa_sexagem(sh, db, date):
 		ws[f'A{row}'].value = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'][hd.isocalendar().weekday % 7]
 		ws[f'B{row}'].value = hd.strftime('%d/%m/%Y')
 
-		fqty = ''
-		mqty = ''
+		fqty = []
+		mqty = []
 		try:
 			fqty = [int(x) for x in str(sh[f'N{srcrow + 6}'].value).split('/')]
 		except:
