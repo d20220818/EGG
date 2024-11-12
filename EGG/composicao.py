@@ -3,7 +3,7 @@ import math
 import numpy as np
 from pyx.xl import *
 from pyx.matrix_utility import transpose
-from pyx.pandasx import pick, strall, fillnext, resum, find_rows, split, select, segment, isnull#, row_of
+from pyx.pandasx import pick, strall, fillnext, resum, find_rows, split, segment, isnull#, row_of, select
 import pyx.pandasx as pdx
 from pyx.array_utility import concat
 from datetime import datetime as dt
