@@ -3,7 +3,8 @@ import math
 import numpy as np
 from pyx.xl import *
 from pyx.matrix_utility import transpose
-from pyx.pandasx import pick, strall, row_of, fillnext, resum, find_rows, split, select, segment, isnull
+from pyx.pandasx import pick, strall, fillnext, resum, find_rows, split, select, segment, isnull#, row_of
+import pyx.pandasx as pdx
 from pyx.array_utility import concat
 from datetime import datetime as dt
 from openpyxl import Workbook, load_workbook
@@ -56,9 +57,11 @@ def fillgtas(sheet, gtas):
 		#print([sheet['MTECH_FLOCK_ID'].iloc[i], sheet.iloc[i, gta], isnull(sheet.iloc[i, gta])])
 		if not isnull(sheet.iloc[i, gta]): continue
 		#print(sheet['MTECH_FLOCK_ID'][i])
-		idx = row_of(gtas, { 'PRODUCTION_DATE': sheet['PRODUCTION_DATE'].iloc[i], 'MTECH_FLOCK_ID': sheet['MTECH_FLOCK_ID'].iloc[i], 'STRAIN_CODE': sheet['STRAIN_CODE'].iloc[i] })
+		#idx = row_of(gtas, { 'PRODUCTION_DATE': sheet['PRODUCTION_DATE'].iloc[i], 'MTECH_FLOCK_ID': sheet['MTECH_FLOCK_ID'].iloc[i], 'STRAIN_CODE': sheet['STRAIN_CODE'].iloc[i] })
 		#print(idx)
-		if idx > -1: sheet.iloc[i, gta] = gtas['GTA_NUMBER'][idx]
+		#if idx > -1: sheet.iloc[i, gta] = gtas['GTA_NUMBER'][idx]
+		idx = pdx.fetchone(gtas, PRODUCTION_DATE=sheet['PRODUCTION_DATE'].iloc[i], MTECH_FLOCK_ID=sheet['MTECH_FLOCK_ID'].iloc[i], STRAIN_CODE=sheet['STRAIN_CODE'].iloc[i] })
+		if idx is not None: sheet.iloc[i, gta] = idx
 		else: sheet.iloc[i, gta] = '-'
 	return sheet
 
