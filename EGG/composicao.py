@@ -147,10 +147,13 @@ def comp_aves(ws, df, orders, vaccines): #ws is the worksheet where the hatch co
 	
 
 	merge_range(ws, 1, 5, 1, 6, custname, border=thick_border)
-	idx = row_of(orders, { 'ORDER NUMBER': on })
+	#idx = row_of(orders, { 'ORDER NUMBER': on })
+	idx = pdx.fetchone(orders, **{ 'ORDER NUMBER': on })
 	min_row = 1
-	if idx > -1:
-		vaccine_numbers = doencas(orders.iloc[idx, orders.columns.get_loc('VACCINES')], vaccines)
+	#if idx > -1:
+	if idx is not None:
+		vaccine_numbers = doencas(idx['VACCINES'], vaccines)
+		#vaccine_numbers = doencas(orders.iloc[idx, orders.columns.get_loc('VACCINES')], vaccines)
 		set_col(ws, 5, vaccine_numbers, 2, ignore_merge=False, scale=(1, 2), border=thin_border)
 		min_row = len(vaccine_numbers) + 1
 
