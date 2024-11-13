@@ -1,5 +1,5 @@
 {
-	"packages": ["pandas", "multipledispatch", "openpyxl", "pypdf"],
+	"packages": ["pandas", "multipledispatch", "openpyxl", "pypdf", "sqlite3"],
 	"files": {
 		"https://raw.githubusercontent.com/d20220818/EGG/main/EGG/__init__.py": "./EGG/__init__.py",
 		"https://raw.githubusercontent.com/d20220818/EGG/main/EGG/composicao.py": "./EGG/composicao.py",
