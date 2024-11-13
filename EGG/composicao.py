@@ -61,7 +61,7 @@ def fillgtas(sheet, gtas):
 		#print(idx)
 		#if idx > -1: sheet.iloc[i, gta] = gtas['GTA_NUMBER'][idx]
 		idx = pdx.fetchone(gtas, PRODUCTION_DATE=sheet['PRODUCTION_DATE'].iloc[i], MTECH_FLOCK_ID=sheet['MTECH_FLOCK_ID'].iloc[i], STRAIN_CODE=sheet['STRAIN_CODE'].iloc[i])
-		if idx is not None: sheet.iloc[i, gta] = idx
+		if idx is not None: sheet.iloc[i, gta] = idx['GTA_NUMBER']
 		else: sheet.iloc[i, gta] = '-'
 	return sheet
 
