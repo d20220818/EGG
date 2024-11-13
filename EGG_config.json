@@ -23,6 +23,7 @@
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/pypdfx.py": "./pyx/pypdfx.py",
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/pyscriptx.py": "./pyx/pyscriptx.py",
 		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/collectionsx.py": "./pyx/collectionsx.py",
-		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/xl.py": "./pyx/xl.py"
+		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/xl.py": "./pyx/xl.py",
+		"https://raw.githubusercontent.com/Setserp13/pyx/main/pyx/sqlx.py": "./pyx/sqlx.py"
 	}
 }
