@@ -56,6 +56,7 @@ def gerar_programa_sexagem(sh, db, date):
 	for i in range(7):
 		srcrow += 45
 		hd = pd.to_datetime(sh[f'N{srcrow + 2}'].value)
+		print(hd)
 		ws[f'A{row}'].value = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'][hd.isocalendar().weekday % 7]
 		ws[f'B{row}'].value = hd.strftime('%d/%m/%Y')
 
