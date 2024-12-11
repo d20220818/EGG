@@ -11,7 +11,7 @@ def gerar_controles(anomes, listas, wb):
 		#print(listas[k])
 		row_count = 0
 		while True:
-			if find_address(template, f"#COLABORADOR{'{:02d}'.format(row_count+1)}") is None:
+			if address_of(template, f"#COLABORADOR{'{:02d}'.format(row_count+1)}") is None:
 				break
 			row_count += 1
 		ws = []
