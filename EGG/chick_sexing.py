@@ -41,20 +41,21 @@ def gerar_programa_sexagem(sh, db, date):
 	row += 5
 
 	main_date = date #datetime.datetime(2024, 3, 4)
-	srcrow = 502
+	srcrow = 16982	#502
+	dif = 56 #45
 	_21dayslater = (main_date + datetime.timedelta(days=21)).isocalendar()
 	while True:
 		curdat = pd.to_datetime(sh[f'N{srcrow}'].value).isocalendar()
 		if _21dayslater.year == curdat.year and _21dayslater.week == curdat.week:
 			break
-		srcrow += 45
+		srcrow += dif
 
-	srcrow -= 45 * 2
+	srcrow -= dif * 2
 
 	srcrow -= 2
 
 	for i in range(7):
-		srcrow += 45
+		srcrow += dif
 		hd = pd.to_datetime(sh[f'N{srcrow + 2}'].value)
 		print(hd)
 		ws[f'A{row}'].value = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'][hd.isocalendar().weekday % 7]
