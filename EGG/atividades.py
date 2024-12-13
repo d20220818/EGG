@@ -9,7 +9,8 @@ def gerar_controles(anomes, listas, wb):
 	for k in listas:
 		listas[k] = listas[k].sort_values(by=['COLABORADOR']).reset_index(drop=True)
 		#print(listas[k])
-		row_count = 0
+		wb = fill_report(wb, template, listas[k])
+		"""row_count = 0
 		while True:
 			if address_of(template, f"#COLABORADOR{'{:02d}'.format(row_count+1)}") is None:
 				break
@@ -25,7 +26,7 @@ def gerar_controles(anomes, listas, wb):
 			replace2(ws[page], **{f"#COLABORADOR{'{:02d}'.format(row+1)}": x, f"#CARGO{'{:02d}'.format(row+1)}": str(listas[k]['CARGO'][i])})
 		for i in range(len(listas[k]['COLABORADOR']) % row_count, row_count):
 			row = i % row_count
-			replace2(ws[-1], **{f"#COLABORADOR{'{:02d}'.format(row+1)}": '', f"#CARGO{'{:02d}'.format(row+1)}": ''})
+			replace2(ws[-1], **{f"#COLABORADOR{'{:02d}'.format(row+1)}": '', f"#CARGO{'{:02d}'.format(row+1)}": ''})"""
 	wb.remove(template)
 	return wb
 
