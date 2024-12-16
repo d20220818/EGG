@@ -8,7 +8,7 @@ def gerar_controles(anomes, listas, wb):
 		replace2(wb.worksheets[1], **{'#UNIDADE': 'INC RIO CLARO', '#ANOMES': anomes})
 	for k in listas:
 		listas[k] = listas[k].sort_values(by=['COLABORADOR']).reset_index(drop=True)
-		#print(listas[k])
+		print(listas[k])
 		wb = fill_report(wb, template, listas[k])
 		"""row_count = 0
 		while True:
