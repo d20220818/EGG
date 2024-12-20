@@ -33,8 +33,8 @@ def gerar_controles(anomes, listas, wb):
 def colabs_list(colabs):
 	listas = {}
 	colabs = colabs[(colabs['DATA DE DEMISSÃO'] != '') & (colabs['DATA DE TRANSFERÊNCIA'] != '')]
-	listas['NOTURNO'] = colabs[colabs['TURNO'] == 'NOTURNO' & colabs['SETOR'] != 'MANUTENÇÃO'][['COLABORADOR', 'CARGO']]	#['COLABORADOR']
-	colabs = colabs[colabs['TURNO'] == 'DIURNO' & colabs['SETOR'] != 'MANUTENÇÃO']
+	listas['NOTURNO'] = colabs[(colabs['TURNO'] == 'NOTURNO') & (colabs['SETOR'] != 'MANUTENÇÃO')][['COLABORADOR', 'CARGO']]	#['COLABORADOR']
+	colabs = colabs[(colabs['TURNO'] == 'DIURNO') & (colabs['SETOR'] != 'MANUTENÇÃO')]
 	listas['MANUTENÇÃO'] = colabs[colabs['SETOR'] == 'MANUTENÇÃO'][['COLABORADOR', 'CARGO']]
 	colabs['SETOR'] = colabs['SETOR'].map(lambda x: 'APOIO E ESCRITÓRIO' if x in ['APOIO', 'ESCRITÓRIO'] else x)
 	for st in colabs['SETOR'].unique():
