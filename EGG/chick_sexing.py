@@ -115,7 +115,7 @@ def gerar_programa_sexagem(sh, db, date):
 		females = []
 		males = []
 
-		for j in range(srcrow, srcrow + 45):
+		for j in range(srcrow, srcrow + dif):
 			try:
 				if int(sh[f'L{j}'].value) > 0:
 					if find_line(db, str(sh[f'B{j}'].value)) == 'F':
