@@ -3,17 +3,17 @@ import pandas as pd
 import pyx.osx as osx
 from pyx.pyscriptx import to_bytes
 
-async def read_File(obj, sheet_name=0):
+async def read_File(obj, sheet_name=0, sep=';'):
 	filepath_or_buffer = await to_bytes(obj)
 	if osx.ext(obj.name) == '.csv':
-		return pd.read_csv(filepath_or_buffer, sep=';', encoding='latin-1')
+		return pd.read_csv(filepath_or_buffer, sep=sep, encoding='latin-1')
 	elif osx.ext(obj.name) in ['.xls', '.xlsx']:
 		return pd.read_excel(filepath_or_buffer, sheet_name=sheet_name)
 
-async def read_FileList(ls):
+async def read_FileList(ls, sep=';'):
 	result = []
 	for i in range(ls.length):
-		result.append(await read_File(ls.item(i)))
+		result.append(await read_File(ls.item(i), sep=sep))
 	return result
 
 async def from_fileInputIDs(fileInputIDs):
