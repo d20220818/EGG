@@ -41,7 +41,7 @@ def gerar_programa_sexagem(sh, db, date):
 	row += 5
 
 	main_date = date #datetime.datetime(2024, 3, 4)
-	srcrow = 16982	#502
+	srcrow = 3695 #16982	#502
 	dif = 56 #45
 	_21dayslater = (main_date + datetime.timedelta(days=21)).isocalendar()
 	while True:
